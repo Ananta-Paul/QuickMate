@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generatejwtToken = require("../config/generatejwtToken");
-const { veryfyOtp } = require("../controllers/otpController");
+const { verifyOTP } = require("../controllers/otpController");
 // {
 //   _id: ObjectId,
 //   email: String,
@@ -11,7 +11,7 @@ const { veryfyOtp } = require("../controllers/otpController");
 //   createdAt: Date,
 // }
 const signupUser = asyncHandler(async (req, res) => {
-  const { name, phone, avatar, role, status } = req.body;
+  const { name, phone, avatar, role, otp } = req.body;
   if (!name || !phone) {
     res.status(400);
     throw new Error("Please enter all the fields");
@@ -21,10 +21,11 @@ const signupUser = asyncHandler(async (req, res) => {
     res.status(403);
     throw new Error("User already Exists");
   }
-  if (!status || status !== "pending") {
+  if (!otp) {
     res.status(400);
     throw new Error("Please generate OTP first");
   }
+  await verifyOTP(req, res);
   const user = await User.create({ name, phone, avatar, role });
 
   if (user) {
@@ -37,17 +38,18 @@ const signupUser = asyncHandler(async (req, res) => {
 
 const userAuth = asyncHandler(async (req, res) => {
   const { phone, otp } = req.body;
-  const user = await User.findOne({ phone });
-  if (user) {
-    await veryfyOtp(phone, otp);
-    res.status(200).json({
-      result: user,
-      token: generatejwtToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error("Phone number or OTP is incorrect");
-  }
+  //const user = await User.findOne({ phone });
+  const user = { _id: "12345", phone, otp };
+  // if (user) {
+  await verifyOTP(req, res);
+  res.status(200).json({
+    result: user,
+    token: generatejwtToken(user._id),
+  });
+  // } else {
+  //   res.status(400);
+  //   throw new Error("Phone number or OTP is incorrect");
+  // }
 });
 const getUsers = asyncHandler(async (req, res) => {
   const keyword = req.query

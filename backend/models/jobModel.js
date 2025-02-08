@@ -1,9 +1,20 @@
+const { create } = require("domain");
 const mongoose = require("mongoose");
 
 const jobModel = mongoose.Schema(
   {
+    createdBy: {
+      type: "ObjectId",
+      ref: "User",
+      required: true,
+    },
     title: { type: "String", required: true },
     description: { type: "String", required: true },
+    gender: {
+      type: "String",
+      required: true,
+      enum: ["Male", "Female", "Other"],
+    },
     location: { type: "String", required: true },
     budget: { type: "Number", required: true },
     requiredSkills: { type: ["String"], required: true },

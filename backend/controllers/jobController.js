@@ -6,17 +6,23 @@ const fetchJobs = asyncHandler(async (req, res) => {
   res.json(jobs);
 });
 const createJob = asyncHandler(async (req, res) => {
+  console.log(req.body);
+
   const {
+    id,
     title,
     description,
     location,
+    gender,
     budget,
     requiredSkills,
     status,
     applicants,
   } = req.body;
   const job = new Job({
+    createdBy: id,
     title,
+    gender,
     description,
     location,
     budget,

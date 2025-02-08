@@ -7,14 +7,13 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 const getOTP = asyncHandler(async (req, res) => {
-  const { phone } = req.params;
+  const { phone } = req.query;
+  //   console.log(req.query);
 
   const verification = await client.verify.v2
     .services("VAc79c290bea9b72ea8efc42b590ad6832")
-    .verifications.create({ to: phone, channel: "sms" })
-    .then((verification) => console.log(verification.sid));
-
-  console.log(verification.status);
+    .verifications.create({ to: `+91${phone}`, channel: "sms" });
+  //   console.log("v", verification);
   if (verification.status === "pending") {
     res.status(200).json({ message: "OTP sent successfully" });
   } else {
@@ -22,14 +21,14 @@ const getOTP = asyncHandler(async (req, res) => {
   }
 });
 
-const verifyOTP = asyncHandler(async (phone, code) => {
-  const verificationCheck = client.verify.v2
+const verifyOTP = asyncHandler(async (req, res) => {
+  const { phone, otp } = req.body;
+  const verificationCheck = await client.verify.v2
     .services("VAc79c290bea9b72ea8efc42b590ad6832")
-    .verificationChecks.create({ to: phone, code })
-    .then((verification_check) => console.log(verification_check.status));
-  if (verificationCheck.status === "approved") {
-    res.status(200).json({ message: "OTP verified successfully" });
-  } else {
+    .verificationChecks.create({ to: `+91${phone}`, code: otp });
+  if (verificationCheck.status !== "approved") {
+    //     res.status(200).json({ message: "OTP verified successfully" });
+    //   } else {
     res.status(400).json({ message: "OTP not verified" });
   }
 });

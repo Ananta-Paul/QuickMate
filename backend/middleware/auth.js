@@ -2,21 +2,19 @@ const jwt = require("jsonwebtoken");
 const auth = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    // const isCustomeAuth = token.length < 500;
-    // let data;
-    // if (token && isCustomeAuth) {
-    //console.log("custome");
+
+    if (!token)
+      return res.status(401).json({ message: "Authentication token missing" });
     const data = jwt.verify(token, process.env.SECRET);
-    req.id = data?.id;
-    // } else {
-    //   console.log("google");
-    //   data = jwt.decode(token);
-    //   req.id = data?.sub;
-    // }
-    // req.user = await User.findById(decoded.id).select("-password");
+    // console.log(data);
+    if (!data || !data?.id) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    req.body.id = data?.id;
     next();
   } catch (error) {
-    res.status(401).json({ message: "Token Invalid", error });
+    console.error("Authentication error:", error);
+    res.status(401).json({ message: "Authentication failed" });
   }
 };
 module.exports = auth;
