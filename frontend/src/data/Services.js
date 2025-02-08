@@ -1,6 +1,6 @@
 
 
-export const Services = [
+export const services = [
     {
         "title": "Maid Services",
         "description": "Professional house cleaning amaid-services.jpegbaby-sitter-services.jpeg",
