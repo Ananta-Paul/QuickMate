@@ -7,7 +7,7 @@ const ServiceCard = ({ title, description, imgPath }) => {
         <div className="shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] p-2 rounded-lg bg-white flex flex-col items-center 
         text-center">
            <div className="w-full h-[200px] overflow-hidden rounded-lg">
-                <Image 
+                <Image  
                     src={imgPath} 
                     alt={title} 
                     width={300} 
@@ -16,7 +16,7 @@ const ServiceCard = ({ title, description, imgPath }) => {
                 />
             </div>
             <h3 className="text-xl font-semibold">{title}</h3>
-            <p className="text-gray-600 mt-2">{description}</p>
+            <p className="text-gray-600 mt-2">{description?.slice(0,60)} ...</p>
         </div>
     );
 };
