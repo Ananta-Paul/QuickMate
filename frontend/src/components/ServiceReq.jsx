@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { skillset } from "../data/ServiceSkill";
+import React, { useState } from "react";
+import { skillset } from "@/data/ServiceSkill";
 
 const ServiceReq = ({ ...data }) => {
   // State for storing selected skills and the current select value.
@@ -10,10 +10,10 @@ const ServiceReq = ({ ...data }) => {
   const [formData, setFormData] = useState({
     hireFor: data[0].title,
     skillset: [],
-    gender: '',
-    location: '',
-    budget: '',
-    description: ''
+    gender: "",
+    location: "",
+    budget: "",
+    description: "",
   });
 
   // When a skill is selected, add it to selectedSkills and update formData.
@@ -29,13 +29,15 @@ const ServiceReq = ({ ...data }) => {
 
   // Remove a skill from selectedSkills and update formData.
   const removeSkill = (skillName) => {
-    const newSkills = selectedSkills.filter(skill => skill !== skillName);
+    const newSkills = selectedSkills.filter((skill) => skill !== skillName);
     setSelectedSkills(newSkills);
     setFormData((prev) => ({ ...prev, skillset: newSkills }));
   };
 
   // Compute available skills by filtering out those already selected.
-  const availableSkills = skillset.filter(skill => !selectedSkills.includes(skill.name));
+  const availableSkills = skillset.filter(
+    (skill) => !selectedSkills.includes(skill.name)
+  );
 
   // Generic onChange handler for text inputs, selects, and textarea.
   const handleInputChange = (e) => {
@@ -59,7 +61,9 @@ const ServiceReq = ({ ...data }) => {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {/* Hire For Section */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="hireFor" className="text-md font-semibold">Hire For</label>
+          <label htmlFor="hireFor" className="text-md font-semibold">
+            Hire For
+          </label>
           <input
             type="text"
             id="hireFor"
@@ -109,7 +113,7 @@ const ServiceReq = ({ ...data }) => {
             className="px-4 py-2 border-2 border-gray-200 rounded-sm w-full"
           >
             <option value="">Select a skill</option>
-            {availableSkills.map(skill => (
+            {availableSkills.map((skill) => (
               <option key={skill.id} value={skill.name}>
                 {skill.name}
               </option>
@@ -119,7 +123,9 @@ const ServiceReq = ({ ...data }) => {
 
         {/* Gender Section */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="gender" className="text-md font-semibold">Gender</label>
+          <label htmlFor="gender" className="text-md font-semibold">
+            Gender
+          </label>
           <select
             id="gender"
             name="gender"
@@ -136,7 +142,9 @@ const ServiceReq = ({ ...data }) => {
 
         {/* Location Section */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="location" className="text-md font-semibold">Location</label>
+          <label htmlFor="location" className="text-md font-semibold">
+            Location
+          </label>
           <input
             type="text"
             id="location"
@@ -150,7 +158,9 @@ const ServiceReq = ({ ...data }) => {
 
         {/* Budget Section */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="budget" className="text-md font-semibold">Budget</label>
+          <label htmlFor="budget" className="text-md font-semibold">
+            Budget
+          </label>
           <input
             placeholder="Enter your budget"
             type="number"
@@ -164,7 +174,9 @@ const ServiceReq = ({ ...data }) => {
 
         {/* Description Section */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="description" className="text-md font-semibold">Description</label>
+          <label htmlFor="description" className="text-md font-semibold">
+            Description
+          </label>
           <textarea
             placeholder="Anything you want to know us!"
             id="description"
