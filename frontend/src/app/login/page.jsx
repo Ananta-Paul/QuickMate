@@ -205,14 +205,15 @@ const Page = () => {
             </div>
           </>
         )}
-        {login === 2 && (
-          <button
-            className="backgroud-button cursor-pointer rounded-full px-6 py-3 text-white"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
-        )}
+
+        <button
+          disabled={login < 2}
+          className="backgroud-button disabled:disable cursor-pointer rounded-full px-6 py-3 text-white"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+
         <p className="w-full max-w-[276px] text-xs">
           By signing in, you agree to the{" "}
           <Link href="/t&c" className="font-semibold">

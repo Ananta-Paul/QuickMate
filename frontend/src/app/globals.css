@@ -161,6 +161,10 @@ body {
 .backgroud-button {
   background: linear-gradient(to left, #f8bf3b, #ef5f3d, #f5712c, #ff8b13);
 }
+.backgroud-button:disabled {
+  border: 2px solid #f8bf3b;
+  background: linear-gradient(to left, white 0%, white 100%);
+}
 
 .custome-box-shadow {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
