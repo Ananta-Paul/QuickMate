@@ -8,7 +8,7 @@ const client = twilio(accountSid, authToken);
 
 const getOTP = asyncHandler(async (req, res) => {
   const { phone } = req.query;
-  //   console.log(req.query);
+  console.log(req.query);
 
   const verification = await client.verify.v2
     .services("VAc79c290bea9b72ea8efc42b590ad6832")
