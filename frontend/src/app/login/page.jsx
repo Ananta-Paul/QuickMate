@@ -14,8 +14,8 @@ const Page = () => {
   //   const [orderId, setOrderid] = useState(uuid());
   const [name, setName] = useState("");
 
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  //   const searchParams = useSearchParams();
+  //   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
   const router = useRouter();
 
   let [countDown, setCountDown] = useState(60);
